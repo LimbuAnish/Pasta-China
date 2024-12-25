@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -19,7 +20,6 @@ namespace MobileTowerDefense
         private string lastWaveCount = "";
 
         public GameObject gameOverMenu;
-        public GameObject winnerMenu;
         [HideInInspector] public bool win = false;
 
         public GameObject waveSpawnerGameObject;
@@ -33,6 +33,7 @@ namespace MobileTowerDefense
         ObjectPool objectPool;
 
         [SerializeField] GameObject characterDialogue;
+        [SerializeField] public CameraShake cameraShake;
         private void Awake()
         {
             objectPool = GameObject.Find("ObjectPool").GetComponent<ObjectPool>();
@@ -44,7 +45,6 @@ namespace MobileTowerDefense
             Time.timeScale = 1f;
             waveSpawnerGameObject.SetActive(false);
             gameOverMenu.SetActive(false);
-            winnerMenu.SetActive(false);
 
             if (audioManager != null) { audioManager.PlaySound("Ambient", "Ambient_jungle", transform.position, true); }
 
@@ -60,24 +60,33 @@ namespace MobileTowerDefense
 
             if (lives == 0)
             {
+                if (audioManager != null) { audioManager.PlaySound("UI", "GameOver", transform.position, false); }
+                cameraShake.StopShake();
                 gameOverMenu.SetActive(true);
                 Time.timeScale = 0f;
             }
 
-            if (waveSpawnerScript.IsFinalClusterOfWave() && !waveSpawnerScript.EnemyIsAlive())
+            if (waveSpawnerScript.IsFinalClusterOfWave() && !waveSpawnerScript.EnemyIsAlive() && !win)
             {
+                win = true;
+                if (audioManager != null) { audioManager.PlaySound("UI", "Win", transform.position, false); }
+                int currentLevel = GlobalData.Instance.levelCounter++;
+                if (currentLevel <= 3)
+                {
+                    StartCoroutine(DelayLoadLevel(currentLevel));
+                }
+                else
+                {
+                    characterDialogue.SetActive(true);
 
-                characterDialogue.SetActive(true);
-                //int currentLevel = GlobalData.Instance.levelCounter++;
-                //if (currentLevel <=3) {
-                //    SceneManager.LoadSceneAsync(currentLevel);
-                //}
-                //else
-                //{
-                //    characterDialogue.SetActive(true);
-
-                //}
+                }
             }
+        }
+
+        IEnumerator DelayLoadLevel(int currentLevel)
+        {
+            yield return new WaitForSeconds(3);
+            SceneManager.LoadSceneAsync(currentLevel);
         }
 
         private void UpdateUI()
@@ -120,7 +129,6 @@ namespace MobileTowerDefense
 
         private void YouWin()
         {
-            winnerMenu.SetActive(true);
             Time.timeScale = 0f;
         }
 

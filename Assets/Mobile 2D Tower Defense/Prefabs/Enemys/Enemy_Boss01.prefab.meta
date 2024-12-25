@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: fb3dfeb383132824bbb9bd111a997ce4
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 234588
+  packageName: Mobile 2D Tower Defense
+  packageVersion: 1.2
+  assetPath: Assets/Mobile 2D Tower Defense/Prefabs/Enemys/UFO(3).prefab
+  uploadId: 565182

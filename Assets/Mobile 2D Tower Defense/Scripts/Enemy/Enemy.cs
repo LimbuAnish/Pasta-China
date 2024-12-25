@@ -47,6 +47,7 @@ namespace MobileTowerDefense
                 else
                 {
                     gameManager.lives--;
+                    gameManager.cameraShake.TriggerShake();
                     Die();
                 }
             }

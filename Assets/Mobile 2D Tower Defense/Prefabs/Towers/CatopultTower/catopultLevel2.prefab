@@ -186,7 +186,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   range: 2.5
-  towerDamage: 120
+  towerDamage: 140
   fireRate: 1
   fireCountDown: 0
   enemyTag: Enemy

@@ -134,7 +134,7 @@ MonoBehaviour:
   target: {fileID: 0}
   range: 2.5
   fireRate: 1
-  towerDamage: 50
+  towerDamage: 70
   fireCountDown: 0
   enemyTag: Enemy
   partToRotate: {fileID: 5865686061128133752}

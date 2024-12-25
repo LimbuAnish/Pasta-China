@@ -9,4 +9,9 @@ public class UIManager : MonoBehaviour
     {
         SceneManager.LoadSceneAsync(level);
     }
+
+    public void ResetCurrentLevelValue()
+    {
+        GlobalData.Instance.levelCounter = 2;
+    }
 }

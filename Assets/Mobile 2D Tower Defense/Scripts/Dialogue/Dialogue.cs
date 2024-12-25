@@ -13,7 +13,7 @@ public class Dialogue : MonoBehaviour
     Button button;
 
     [SerializeField] GameObject dialoguePanel;
-
+    [SerializeField] AudioManager audioManager;
     void Start()
     {
         textComponent.text = string.Empty;
@@ -55,6 +55,7 @@ public class Dialogue : MonoBehaviour
         {
             textComponent.text += c;
             yield return new WaitForSecondsRealtime(textSpeed); // Use unscaled time
+            if (audioManager != null) { audioManager.PlaySound("Dialogue", "Type", transform.position, false); }
         }
     }
 
@@ -75,7 +76,6 @@ public class Dialogue : MonoBehaviour
     void EndDialogue()
     {
         if(button != null) { button.interactable = true; }
-        Debug.Log("stop");
         Time.timeScale = 1; // Resume the game
         if (dialoguePanel != null) { dialoguePanel.SetActive(false); } // Hide dialogue UI
     }

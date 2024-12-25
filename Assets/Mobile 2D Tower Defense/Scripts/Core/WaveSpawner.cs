@@ -37,7 +37,7 @@ namespace MobileTowerDefense
         private float searchCountdown = 1f;
 
         public GameObject[] enemyPrefabs;
-        public GameObject bossPrefab;
+        public GameObject[] bossPrefab;
         public GameObject dialoguePanel;
         ObjectPool objectPool;
         private void Start()
@@ -47,7 +47,10 @@ namespace MobileTowerDefense
             {
                 objectPool.PreloadObjects(item,4);
             }
-            objectPool.PreloadObjects(bossPrefab, 1);
+            foreach (var bossPref in bossPrefab)
+            {
+                objectPool.PreloadObjects(bossPref, 1);
+            }
         }
         void Update()
         {
